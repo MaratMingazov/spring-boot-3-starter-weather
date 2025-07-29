@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.from
 
 
 plugins {
@@ -9,23 +10,6 @@ plugins {
     `maven-publish` // to publish to local artifactory
 }
 
-group = "maratmingazovr"
-version = "1.0.0"
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-}
-
-// ./gradlew publishToMavenLocal
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
-}
-
 
 dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter:3.5.4")
@@ -34,6 +18,7 @@ dependencies {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://repo.spring.io/snapshot") }
@@ -49,7 +34,25 @@ tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar
     enabled = false
 }
 
-// we would like to compile a librfary as a jar file
+// we would like to compile a library as a jar file
 tasks.getByName<Jar>("jar") {
     enabled = true
+}
+
+// to be able to push into maven local
+group = "maratmingazovr"
+version = "1.0.0"
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+// ./gradlew publishToMavenLocal
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
 }
