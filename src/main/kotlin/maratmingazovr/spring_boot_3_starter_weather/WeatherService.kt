@@ -1,4 +1,4 @@
-package com.maratmingazov.spring_boot_3_starter_weather
+package maratmingazovr.spring_boot_3_starter_weather
 
 import com.github.prominence.openweathermap.api.OpenWeatherMapClient
 import com.github.prominence.openweathermap.api.enums.Language
@@ -11,10 +11,14 @@ class WeatherService(
 ) {
 
     fun getTemperature() : String {
-         return openWeatherClient
+         return getTemperature(defaultCity)
+    }
+
+    fun getTemperature(city: String) : String {
+        return openWeatherClient
             .currentWeather()
             .single()
-            .byCityName("Minsk")
+            .byCityName(city)
             .language(Language.ENGLISH)
             .unitSystem(UnitSystem.IMPERIAL)
             .retrieve()

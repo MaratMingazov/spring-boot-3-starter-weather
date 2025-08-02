@@ -1,4 +1,4 @@
-package com.maratmingazov.spring_boot_3_starter_weather
+package maratmingazovr.spring_boot_3_starter_weather
 
 import com.github.prominence.openweathermap.api.OpenWeatherMapClient
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
